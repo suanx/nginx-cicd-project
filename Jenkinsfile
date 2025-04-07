@@ -18,6 +18,10 @@ pipeline {
                     sh "docker build -t ${dckrimg} ."
                 }
             }
+            stage('To test build locally')
+            steps {
+                sh "docker run -d -p 8080:80 --name webapp ${dckrimg}
+            }
         }
     }
 
