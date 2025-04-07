@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        dckrimg = 'nginx/webapp:latest'
+        dckrimg = 'suanx/webapp:latest'
     }
 
     stages {
@@ -18,13 +18,11 @@ pipeline {
                     sh "docker build -t ${dckrimg} ."
                 }
             }
-        }
 
-        stage('Run Docker Container') {
+        stage('docker push-dckrimg -to hub) {
             steps {
                 script {
-                    sh "docker run -d -p 9001:80 --name webapp ${dckrimg}"
-                }
+                    sh "docker push $(dckrimg)"
             }
         }
     }
