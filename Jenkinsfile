@@ -11,7 +11,7 @@ pipeline{
     }
     stage('build docker image'){
         steps{
-            sh 'docker build -t $dckrimg.'
+            sh 'docker build -t $dckrimg .'
         }
     }
 }
