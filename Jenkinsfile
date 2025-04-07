@@ -18,12 +18,23 @@ pipeline {
                     sh "docker build -t ${dckrimg} ."
                 }
             }
+        }
 
-        stage('docker push-dckrimg -to hub') {
+        stage('Push Docker Image to Hub') {
             steps {
                 script {
-                     sh "docker push ${dckrimg}"
+                    sh "docker push ${dckrimg}"
+                }
             }
+        }
+    }
+
+    post {
+        success {
+            echo '✅ Docker image built and pushed to Docker Hub!'
+        }
+        failure {
+            echo '❌ Something went wrong. Check the logs.'
         }
     }
 }
