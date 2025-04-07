@@ -20,21 +20,22 @@ pipeline {
             }
         }
 
+        stage('Docker Login') {
+            steps {
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'dock-con', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                        sh 'echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin'
+                    }
+                }
+            }
+        }
+
         stage('Push Docker Image to Hub') {
             steps {
                 script {
                     sh "docker push ${dckrimg}"
                 }
             }
-        }
-    }
-
-    post {
-        success {
-            echo '✅ Docker image built and pushed to Docker Hub!'
-        }
-        failure {
-            echo '❌ Something went wrong. Check the logs.'
         }
     }
 }
