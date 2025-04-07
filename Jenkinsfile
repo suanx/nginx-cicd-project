@@ -22,7 +22,7 @@ pipeline {
         stage('docker push-dckrimg -to hub') {
             steps {
                 script {
-                    sh "docker push $(dckrimg)"
+                     sh "docker push ${dckrimg}"
             }
         }
     }
