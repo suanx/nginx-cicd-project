@@ -20,3 +20,13 @@ pipeline {
             }
         }
     }
+
+    post {
+        success {
+            echo '✅ Docker image built successfully!'
+        }
+        failure {
+            echo '❌ Build failed. Check logs for errors.'
+        }
+    }
+}
